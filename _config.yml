@@ -37,7 +37,7 @@ plugins:
 remote_theme: pmarsceill/just-the-docs
 
 # Color scheme supports "light" (default) and "dark"
-color_scheme: dark
+color_scheme: light
 
 # Exclude from processing.
 # The following items will not be processed, by default.
