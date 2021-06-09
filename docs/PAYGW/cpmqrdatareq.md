@@ -1,41 +1,34 @@
----
-layout: default
-title: cpmqr data req
-nav_order: 3
-has_children: true
-grand_parent: PAYGW
-parent: Web Api
----
-
-BCTSP CPM Web API
-
 # CPM QR 결제 데이터 요청
+
+### Description
 
 Offline 결제에 사용할 CPM QR 데이터를 받는다.
 
-> ### Endpoint
+### Endpoint
 
 ```js
 POST http://paygwdev.bccard.com/paygw/cpmqrdatareq
 ```
 
-> ### Request
+### Request
 
-| HEADER                                                                   | TYPE   | REQUIRED     |
-| :----------------------------------------------------------------------- | :----- | :----------- |
-| **`Authorization`** <br /> API 인증을 위해 미리 공유된 credential을 설정 | String | **Required** |
+| HEADER                                                                 | TYPE   | REQUIRED     |
+| :--------------------------------------------------------------------- | :----- | :----------- |
+| **`Authorization`** <br> API 인증을 위해 미리 공유된 credential을 설정 | String | **Required** |
 
-| REQUEST PARAMETER                                                                                                                              | TYPE     | REQUIRED     |
-| :--------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :----------- | --- | ------ | ------------ |
-| **`REQUESTOR_ID`** <br /> TSP서비스 계약시 발급된 ID                                                                                           | String   | **Required** |
-| **`MSG_ID`** <br /> 메시지 ID                                                                                                                  | String   | **Required** |
-| **`MSG_VER`** <br /> API 버전                                                                                                                  | String   | **Required** |
-| **`CRTPYO_TYPE`** <br /> [TSP 암호화구분 코드]()                                                                                               | String   | **Required** |
-| **`CRYPTO_KEY_VER`** <br /> 암호화 키 버전                                                                                                     | String   | **Required** |
-| **`TRNS_TRACE_NO`** <br /> 한 API 트랜잭션간 유일한 거래추적번호. Client에서 40Byte 이하로 자유롭게 생성한다.                                  | String   | **Required** |
-| **`ENC_DATA`** <br /> 암호화 항목을 요청한 CRYPTO_TYPE으로 암호화 한 byte array를 Base64방식으로 인코딩 한 데이터.<br /> <br /> `디지털PAN번호 | 요청시간 | 거래추적번호 | `   | String | **Required** |
+<br>
 
-> ### Sample Request Data
+| REQUEST PARAMETER                                                                                                                                  | TYPE     | REQUIRED     |
+| :------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :----------- | --- | ------ | ------------ |
+| **`REQUESTOR_ID`** <br> TSP서비스 계약시 발급된 ID                                                                                                 | String   | **Required** |
+| **`MSG_ID`** <br> 메시지 ID                                                                                                                        | String   | **Required** |
+| **`MSG_VER`** <br> API 버전                                                                                                                        | String   | **Required** |
+| **`CRTPYO_TYPE`** <br> [TSP 암호화구분 코드]()                                                                                                     | String   | **Required** |
+| **`CRYPTO_KEY_VER`** <br> 암호화 키 버전                                                                                                           | String   | **Required** |
+| **`TRNS_TRACE_NO`** <br> 한 API 트랜잭션간 유일한 거래추적번호. Client에서 40Byte 이하로 자유롭게 생성한다.                                        | String   | **Required** |
+| **`ENC_DATA`** <br> 암호화 항목을 요청한 CRYPTO_TYPE으로 암호화 한 byte array를 Base64방식으로 인코딩 한 데이터<br><br> 암호화항목: `디지털PAN번호 | 요청시간 | 거래추적번호 | `   | String | **Required** |
+
+### Sample Request Data
 
 ```json
 {
@@ -62,20 +55,20 @@ POST http://paygwdev.bccard.com/paygw/cpmqrdatareq
 }
 ```
 
-> ### Response
+### Response
 
 에러가 발생하지 않았다면, HTTP 상태코드 '200 OK' 와 함께 응답 바디에 JSON형식의 Object를 반환한다.
 
-| RESPONSE PARAMETER                                                                              | TYPE   | REQUIRED     |
-| :---------------------------------------------------------------------------------------------- | :----- | :----------- |
-| **`REQUESTOR_ID`** <br /> TSP서비스 계약시 발급된 ID                                            | String | **Required** |
-| **`MSG_ID`** <br /> 메시지 ID                                                                   | String | **Required** |
-| **`CRYPTO_KEY_VER`** <br /> 암호화 키 버전                                                      | String | **Required** |
-| **`RSLT_CD`** <br /> [TSP 응답코드]()                                                           | String | **Required** |
-| **`RSLT_MSG`** <br /> 응답코드 설명메시지                                                       | String | **Required** |
-| **`CPMQR_DATA`** <br /> CPM QR데이터. 월렛 App에서는 해당 데이터 그대로 QR코드로 생성해야 한다. | String | **Required** |
+| RESPONSE PARAMETER                                                                            | TYPE   | REQUIRED     |
+| :-------------------------------------------------------------------------------------------- | :----- | :----------- |
+| **`REQUESTOR_ID`** <br> TSP서비스 계약시 발급된 ID                                            | String | **Required** |
+| **`MSG_ID`** <br> 메시지 ID                                                                   | String | **Required** |
+| **`CRYPTO_KEY_VER`** <br> 암호화 키 버전                                                      | String | **Required** |
+| **`RSLT_CD`** <br> [TSP 응답코드]()                                                           | String | **Required** |
+| **`RSLT_MSG`** <br> 응답코드 설명메시지                                                       | String | **Required** |
+| **`CPMQR_DATA`** <br> CPM QR데이터. 월렛 App에서는 해당 데이터 그대로 QR코드로 생성해야 한다. | String | **Required** |
 
-> ### Sample Response Data
+### Sample Response Data
 
 ```json
 {
