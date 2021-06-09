@@ -1,3 +1,25 @@
+---
+layout: default
+title: cpmqrdatareq
+nav_order: 1
+grand_parent: PAYGW
+parent: Web Api
+has_children: false
+---
+
+#### 목차
+
+- [CPM QR 결제 데이터 요청](#cpm-qr----------)
+
+  - [Description](#description)
+  - [Endpoint](#endpoint)
+  - [Request](#request)
+  - [Sample Request Data](#sample-request-data)
+  - [Response](#response)
+  - [Sample Response Data](#sample-response-data)
+
+---
+
 # CPM QR 결제 데이터 요청
 
 ### Description
