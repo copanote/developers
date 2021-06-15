@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Get the Last Transaction
-nav_order: 2
+nav_order: 1
 parent: Transaction API
 grand_parent: MPM
 has_children: false
