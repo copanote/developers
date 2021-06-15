@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Transaction API
+title: Transaction Inquiry API
 nav_order: 4
 parent: MPM
 has_children: true
 ---
 
-Transaction API
+MPM QR거래내역 조회

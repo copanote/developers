@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Create Mpm Qr Data
+title: MPM QR코드 생성
 nav_order: 1
 parent: QR API
 grand_parent: MPM

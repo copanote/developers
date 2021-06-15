@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Get the Last Transaction
+title: 마지막 거래 조회
 nav_order: 1
 parent: Transaction API
 grand_parent: MPM

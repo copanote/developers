@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Verify Mpm Qr
+title: MPM QR코드 검증
 nav_order: 2
 parent: QR API
 grand_parent: MPM

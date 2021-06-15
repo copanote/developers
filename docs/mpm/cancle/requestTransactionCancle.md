@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Cancle a Payment
+title: 승인취소 요청
 nav_order: 1
 parent: Cancle API
 grand_parent: MPM

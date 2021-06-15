@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Get Mpm Qr's Information
+title: MPM QR코드 정보 조회
 nav_order: 3
 parent: QR API
 grand_parent: MPM
