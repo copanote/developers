@@ -2,7 +2,7 @@
 layout: default
 title: 승인취소 요청
 nav_order: 1
-parent: Cancle API
+parent: Payment API
 grand_parent: MPM
 has_children: false
 ---

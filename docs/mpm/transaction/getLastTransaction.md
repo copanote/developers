@@ -2,7 +2,7 @@
 layout: default
 title: 마지막 거래 조회
 nav_order: 1
-parent: Transaction API
+parent: Transaction Inquiry API
 grand_parent: MPM
 has_children: false
 ---
