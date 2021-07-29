@@ -1,23 +1,23 @@
 ---
 layout: default
-title: MPM QR코드 검증
+title: MPM QR코드 검증 (삭제 예정 - oAuth사용)
 nav_order: 2
 parent: QR API
 grand_parent: MPM
 has_children: false
 ---
 
-# MPM QR 데이터 검증
+# MPM QR 데이터 검증 (삭제 예정 - oAuth사용)
 
 ## 개요
 
-올바른 BC MPM QR 데이터인지 검증
+MPM QR코드가 BCMPM에서 생성한 정상적인 QR코드 데이터인지 검증합니다.
 
 ## 선행조건
 
 없음
 
-## Endpoint
+## URL
 
 | Environment | BASE URL                                               |
 | ----------- | ------------------------------------------------------ |
@@ -30,15 +30,15 @@ POST https://apidev.bccard.com/pay/qrdev/v1.0/mpm/qr_verify
 
 ### 요청
 
-| HEADER                                                                                                                                                                                                     |  TYPE  | REQUIRED |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----: | :------: |
-| **`x-bc-txid`** <br> API 트랜잭션 ID. 클라이언트에서 필요시 Unique ID로 생성하여 설정. API서버에선 요청 값 그대로 반환한다. 만약 설정하지 않는다면, API서버에서 생성하여 반환한다.                         | String | Optional |
+| HEADER                                                       |  TYPE  | REQUIRED |
+| :----------------------------------------------------------- | :----: | :------: |
+| **`x-bc-txid`** <br> API 트랜잭션 ID. 클라이언트에서 필요시 Unique ID로 생성하여 설정. API서버에선 요청 값 그대로 반환. 만약 설정하지 않는다면, API서버에서 생성하여 반환 | String | Optional |
 | **`Content-Type`** <br> Http Body의 ContentType을 나타내는 HTTP표준헤더. <br><br> 지원하는 ContentType목록<br> - _application/json;charset=utf-8_ <br> - _application/x-www-form-urlencoded;charset=utf-8_ | String | Required |
 
-| Request Body Parameter                                                                                                                                                                            |  TYPE  | REQUIRED |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :----: | :------: |
-| **`QR_DATA`** <br> QR Code 이미지의 데이터. 읽어들인 그대로의 데이터를 전달해야한다. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | String | Required |
-| **`AFFI_CO_ID`** <br> 제휴사 ID                                                                                                                                                                   | String | Required |
+| Request Body Parameter                                       |  TYPE  | REQUIRED |
+| :----------------------------------------------------------- | :----: | :------: |
+| **`QR_DATA`** <br> QR 코드 이미지의 데이터. 스캔한 그대로의 데이터를 전달 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | String | Required |
+| **`AFFI_CO_ID`** <br> MPM QR센터에 등록된 제휴사 ID. 미리 발급받은 제휴ID를 설정 | String | Required |
 
 ### Sample 요청 데이터
 

@@ -11,17 +11,13 @@ has_children: false
 
 ## 개요
 
-MPM QR코드의 가맹점정보를 조회한다.
+스캔한 MPM QR코드를 이용해 가맹점 및 거래 정보를 조회합니다.
 
 ## 선행조건
 
-### API인증/권한
+* [API키](../priview/previewIndex.html#api키)
 
-API호출에 대한 API키를 발급받아야 합니다. Development/Production환경에서 사용할 API키를 발급받으려면 API담당자로부터 발급을 받아야합니다. Test를 위한 API키는 아래와 같습니다.
-
-> apikey: `1231231231`
-
-## Endpoint
+## URL
 
 | Environment | BASE URL                                                 |
 | ----------- | -------------------------------------------------------- |
@@ -34,16 +30,16 @@ POST https://apidev.bccard.com/pay/qrdev/v1.0/mpm/get_qr_info
 
 ## 요청
 
-| HEADER                                                                                                                                                                                                     |  TYPE  | REQUIRED |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----: | :------: |
-| **`x-bc-txid`** <br> API 트랜잭션 ID. 클라이언트에서 필요시 Unique ID로 생성하여 설정. API서버에선 요청 값 그대로 반환한다. 만약 설정하지 않는다면, API서버에서 생성하여 반환한다.                         | String | Optional |
+| HEADER                                                       |  TYPE  | REQUIRED |
+| :----------------------------------------------------------- | :----: | :------: |
+| **`x-bc-txid`** <br> API 트랜잭션 ID. 클라이언트에서 필요시 Unique ID로 생성하여 설정. API서버에선 요청 값 그대로 반환한다. 만약 설정하지 않는다면, API서버에서 생성하여 반환 | String | Optional |
 | **`Content-Type`** <br> Http Body의 ContentType을 나타내는 HTTP표준헤더. <br><br> 지원하는 ContentType목록<br> - _application/json;charset=utf-8_ <br> - _application/x-www-form-urlencoded;charset=utf-8_ | String | Required |
-| **`apikey`** <br> API클라이언트에게 발급된 API키. [_API인증/권한 보기_](#api인증권한)                                                                                                                      | String | Required |
+| **`apikey`** <br> API클라이언트에게 발급된 API키 [_API키 보기_](../priview/previewIndex.html#api키) | String | Required |
 
 | Request Body Parameter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |  TYPE  | REQUIRED |
-| :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----: | :------: |
-| **`AFFI_CO_TRNS_UNIQ_NO`** <br> 제휴사거래고유번호                                                                                                                                                                                                                                                                                                                                                                                                                                        | String | Required |
-| **`QR_DATA`** <br> QR코드 데이터                                                                                                                                                                                                                                                                                                                                                                                                                                                          | String | Required |
+| :----------------------------------------------------------- | :----: | :------: |
+| **`AFFI_CO_TRNS_UNIQ_NO`** <br> 제휴사에서 거래를 식별하기 위해 Unique하게 채번한 거래고유번호. API서버는 전달받은 값은 그대로 응답 | String | Required |
+| **`QR_DATA`** <br> QR 코드 이미지의 데이터. 스캔한 그대로의 데이터를 전달 | String | Required |
 
 ## Sample 요청 데이터
 
@@ -63,12 +59,12 @@ affi_co_trns_uniq_no="1182083830311"&qr_data="0002010102121531260004102600041075
 ## 응답
 
 | Response Parameter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |  TYPE  | REQUIRED |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :----: | :------: |
-| **`code`** <br> 응답코드                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | String | Required |
-| **`description`** <br> 응답코드 설명                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | String | Optional |
-| **`AFFI_CO_TRNS_UNIQ_NO`** <br> 제휴사거래고유번호                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | String | Optional |
-| **`CARD_CO_MER_MGMT_NO`** <br> 카드사 가맹점번호                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | String | Optional |
-| **`CARD_CO_MER_NM`** <br> 카드사 가맹점 명                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | String | Optional |
+| :----------------------------------------------------------- | :----: | :------: |
+| **`code`** <br> [응답코드](#응답코드)                        | String | Required |
+| **`description`** <br> 응답코드 설명                         | String | Optional |
+| **`AFFI_CO_TRNS_UNIQ_NO`** <br> 제휴사에서 요청전문에 전달한 값을 그대로 응답 | String | Optional |
+| **`CARD_CO_MER_MGMT_NO`** <br> 카드사에서 관리하는 가맹점관리번호 | String | Optional |
+| **`CARD_CO_MER_NM`** <br> 카드사에서 관리하는 가맹점이름     | String | Optional |
 
 ## 응답코드
 

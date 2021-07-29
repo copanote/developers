@@ -6,4 +6,4 @@ parent: MPM
 has_children: true
 ---
 
-MPM QR코드의 생성, 검증, 조회 API
+MPM QR코드를 생성하고, QR코드를 이용해 가맹점과 거래정보를 조회하는 API입니다.

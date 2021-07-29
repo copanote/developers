@@ -11,21 +11,19 @@ has_children: false
 
 ## 개요
 
-BCMPM 가맹점의 MPM QR 데이터의 이미지 바이너리 생성한다. QR데이터를 생성하기 위해서는 사전에 BCMPM 가맹점에 등록이 돼야 한다. 생성 가능한 이미지 바이너리 포맷은 다음과 같다. [jpg, bmp, gif, png, jpeg, wbmp]
+BCMPM 등록 가맹점의 MPM QR코드 이미지 바이너리를 생성합니다.<br>생성 가능한 이미지 포맷은 다음과 같습니다.
+* jpg / jpeg
+* bmp
+* gif
+* png
+* wbmp
 
 ## 선행조건
 
-### API인증/권한
+* [API키](../priview/previewIndex.html#api키)
+* [제휴사ID](../priview/previewIndex.html#제휴사id)
 
-API호출에 대한 API키를 발급받아야 합니다. Development/Production환경에서 사용할 API키를 발급받으려면 API담당자로부터 발급을 받아야합니다. Test를 위한 API키는 아래와 같습니다.
-
-> apikey: `1231231231`
-
-### 제휴사ID
-
-MPM QR의 생성/결제/취소/조회 과정에서 특정 제휴동작을 하려면 미리 제휴사ID를 등록해야 합니다. 제휴사ID는 API담당자로부터 발급을 받아야 합니다.
-
-## Endpoint
+## URL
 
 | Environment | BASE URL                                                |
 | ----------- | ------------------------------------------------------- |
@@ -38,23 +36,23 @@ POST https://apidev.bccard.com/pay/qrdev/v1.0/mpm/qrcode_gen
 
 ## 요청
 
-| HEADER                                                                                                                                                                                                     |  TYPE  | REQUIRED |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----: | :------: |
-| **`x-bc-txid`** <br> API 트랜잭션 ID. 클라이언트에서 필요시 Unique ID로 생성하여 설정. API서버에선 요청 값 그대로 반환한다. 만약 설정하지 않는다면, API서버에서 생성하여 반환한다.                         | String | Optional |
-| **`Content-Type`** <br> Http Body의 ContentType을 나타내는 HTTP표준헤더. <br><br> 지원하는 ContentType목록<br> - _application/json;charset=utf-8_ <br> - _application/x-www-form-urlencoded;charset=utf-8_ | String | Required |
-| **`apikey`** <br> API클라이언트에게 발급된 API키. [_API인증/권한 보기_](#api인증권한)                                                                                                                      | String | Required |
+| HEADER                                                       |  TYPE  | REQUIRED |
+| :----------------------------------------------------------- | :----: | :------: |
+| **`x-bc-txid`** <br> API 트랜잭션 ID. 클라이언트에서 필요시 Unique ID로 생성하여 설정. API서버에선 요청 값 그대로 반환. 만약 설정하지 않는다면, API서버에서 생성하여 반환 | String | Optional |
+| **`Content-Type`** <br> Http Body의 ContentType을 나타내는 HTTP표준헤더 <br><br> 지원하는 ContentType목록<br> - _application/json;charset=utf-8_ <br> - _application/x-www-form-urlencoded;charset=utf-8_ | String | Required |
+| **`apikey`** <br> API클라이언트에게 발급된 API키 [_API키 보기_](../priview/previewIndex.html#api키) | String | Required |
 
-| Request Body Parameter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      |  TYPE  |  REQUIRED   |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----: | :---------: |
-| **`REQ_DATA_TYPE`** <br> MPM QR 데이터를 위한 생성 방식. 3가지 생성 방식이 있고 해당 방식은 숫자형태의 코드값으로 표현된다. 각각의 코드가 의미하는 값을 `REQ_DATA_VALUE` 항목에 설정해야 한다. <br><br> 사용 가능한 코드 <br> - **1**: MPM 가맹점번호 `MPM가맹점 등록 시 생성되는 MPM가맹점번호` <br> - **2**: 금융기관공동코드 \| 카드사 가맹점번호 `카드사를 의미하는 금융기관 공동코드와 해당 카드사에서 발급받은 가맹점번호` <br> - **3** : MPM회원ID `QrpayForShop App.에 등록된 회원 ID` | String |  Required   |
-| **`REQ_DATA_VALUE`** <br> `REQ_DATA_TYPE`에서 설정한 코드가 의미하는 데이터                                                                                                                                                                                                                                                                                                                                                                                                                    | String |  Required   |
-| **`QR_TYPE`** <br> 생성할 MPM QR 타입 <br><br> 사용 가능한 코드 <br> - **1**: 고정형 `금액이 입력되지 않은 QR코드` <br> - **2**: 변동형 `금액이 입력된 QR코드 AMOUNT항목에 금액을 입력해야 한다`                                                                                                                                                                                                                                                                                               | String | Conditional |
-| **`AMOUNT`** <br> QR_TYPE이 변동형일때 해당 QR코드의 가격. 고정형일때는 이 항목은 무시된다                                                                                                                                                                                                                                                                                                                                                                                                     | String |  Required   |
-| **`TRANSACTION_CURRENCY`** <br> 통화코드 [ISO/IEC 4217](https://www.iso.org/iso-4217-currency-codes.html)을 따르며 3자리의 숫자로 표현 <br> 410:KRW(원화), 840:USD(US달러), 156:CNY(위안화)                                                                                                                                                                                                                                                                                                    | String |  Required   |
-| **`AFFI_CO_ID`** <br> MPM QR센터에 등록된 제휴사 ID. 미리 발급받은 제휴ID를 설정해야 한다                                                                                                                                                                                                                                                                                                                                                                                                      | String |  Optional   |
-| **`AFFI_CO_REQ_VAL`** <br> 해당 QR생성 시 제휴사가 설정하는 데이터. 특정 제휴활동의 기반 데이터로 사용하게 된다. 예를들어 해당 MPM QR로 결제 발생시 제휴가에게 이 항목에 설정한 값을 푸시메시지로 보낼 수 있다.                                                                                                                                                                                                                                                                                | String |  Optional   |
-| **`IMAGE_SIZE`** <br> 응답 QR 이미지 데이터의 가로/세로 픽셀 크기 (기본값: 200 px). 이 항목이 설정되지 않으면 기본값으로 응답한다.                                                                                                                                                                                                                                                                                                                                                             | String |  Optional   |
-| **`IMAGE_FORMAT`** <br> 응답 QR 이미지 데이터의 포맷. 이 항목이 설정되지 않으면 기본값으로 응답한다. M <br> 이용가능한 이미지 포맷<br> - **jpg**<br> - **jpeg** <br>- **bmp** <br>- **gif**<br>- **png**(기본값)<br>- **wbmp**                                                                                                                                                                                                                                                                 | String |  Optional   |
+| Request Body Parameter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |  TYPE  |  REQUIRED   |
+| :----------------------------------------------------------- | :----: | :---------: |
+| **`REQ_DATA_TYPE`** <br> MPM QR 데이터를 위한 생성 방식. 3가지 생성 방식이 있고 해당 방식은 숫자형태의 코드값으로 표현. 각각의 코드가 의미하는 값을 `REQ_DATA_VALUE` 항목에 설정 <br><br> 사용 가능한 코드 <br> - **1**: MPM 가맹점번호 `MPM가맹점 등록 시 생성되는 MPM가맹점번호` <br> - **2**: [금융회사공동코드](http://www.kftc.or.kr/kftc/data/EgovBankListMove.do) \| 카드사 가맹점번호 `카드사를 의미하는 금융회사공동코드와 해당 카드사에서 발급받은 가맹점번호` <br> - **3** : MPM회원ID `QrpayForShop App.에 등록된 회원 ID` | String |  Required   |
+| **`REQ_DATA_VALUE`** <br> `REQ_DATA_TYPE`에서 설정한 코드가 의미하는 데이터 | String |  Required   |
+| **`QR_TYPE`** <br> 생성할 MPM QR 타입 <br><br> 사용 가능한 코드 <br> - **1**: 고정형 `금액이 입력되지 않은 QR코드` <br> - **2**: 변동형 `금액이 입력된 QR코드 AMOUNT항목에 금액을 입력` | String |  Required   |
+| **`AMOUNT`** <br> QR_TYPE이 변동형일때 해당 QR코드의 가격. 고정형일때는 이 항목은 무시 | String | Conditional |
+| **`TRANSACTION_CURRENCY`** <br> 통화코드 [ISO/IEC 4217](https://www.iso.org/iso-4217-currency-codes.html)을 따르며 3자리의 숫자로 표현 <br> 410:KRW(원화), 840:USD(US달러), 156:CNY(위안화) | String |  Required   |
+| **`AFFI_CO_ID`** <br>BCMPM에 등록된 제휴사 ID. 미리 발급받은 제휴ID를 설정 | String |  Optional   |
+| **`AFFI_CO_REQ_VAL`** <br> 해당 QR생성 시 제휴사가 설정하는 데이터. 특정 제휴활동의 기반 데이터로 사용. 예를들어 해당 MPM QR로 결제 발생시 제휴사에게 이 항목에 설정한 값을 푸시메시지로 보낼 수 있다. | String |  Optional   |
+| **`IMAGE_SIZE`** <br> 응답 QR 이미지 데이터의 가로/세로 픽셀 크기 (기본값: 200 px). 이 항목이 설정되지 않으면 기본값으로 응답 | String |  Optional   |
+| **`IMAGE_FORMAT`** <br> 응답 QR 이미지 데이터의 포맷. 이 항목이 설정되지 않으면 기본값으로 응답<br> 이용가능한 이미지 포맷<br> - **jpg**<br> - **jpeg** <br>- **bmp** <br>- **gif**<br>- **png**(기본값)<br>- **wbmp** | String |  Optional   |
 
 ## Sample 요청 데이터
 
@@ -81,12 +79,12 @@ req_data_type="1"&req_data_value="900003241"&qr_type="1"&transaction_currency="4
 ## 응답
 
 | Response Parameter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |  TYPE  | REQUIRED |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :----: | :------: |
-| **`code`** <br> 응답코드                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | String | Required |
-| **`description`** <br> 응답코드 설명                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | String | Optional |
-| **`QR_BASE64`** <br> base64로 인코딩된 QR 이미지 데이터                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | String | Optional |
-| **`REG_ATON`** <br> QR 생성시간                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | String | Optional |
-| **`QR_REFERENCE_ID`** <br> QR코드 일련번호                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | String | Optional |
+| :----------------------------------------------------------- | :----: | :------: |
+| **`code`** <br>[응답코드](#응답코드)                         | String | Required |
+| **`description`** <br> 응답코드 설명                         | String | Optional |
+| **`QR_BASE64`** <br> base64로 인코딩된 QR 이미지 데이터      | String | Optional |
+| **`REG_ATON`** <br> QR 생성시간                              | String | Optional |
+| **`QR_REFERENCE_ID`** <br> QR코드 일련번호                   | String | Optional |
 
 ## 응답코드
 

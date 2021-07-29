@@ -6,4 +6,5 @@ parent: MPM
 has_children: true
 ---
 
-MPM QR거래내역 조회
+MPM QR을 스캔하여 BCMPM을 통해 처리된 거래내역을 조회합니다.
+
