@@ -20,8 +20,8 @@ BCMPM 등록 가맹점의 MPM QR코드 이미지 바이너리를 생성합니다
 
 ## 선행조건
 
-* [API키](../priview/previewIndex.html#api키)
-* [제휴사ID](../priview/previewIndex.html#제휴사id)
+* [API키](../preview/previewIndex.html#api키)
+* [제휴사ID](../preview/previewIndex.html#제휴사id)
 
 ## URL
 
@@ -40,7 +40,7 @@ POST https://apidev.bccard.com/pay/qrdev/v1.0/mpm/qrcode_gen
 | :----------------------------------------------------------- | :----: | :------: |
 | **`x-bc-txid`** <br> API 트랜잭션 ID. 클라이언트에서 필요시 Unique ID로 생성하여 설정. API서버에선 요청 값 그대로 반환. 만약 설정하지 않는다면, API서버에서 생성하여 반환 | String | Optional |
 | **`Content-Type`** <br> Http Body의 ContentType을 나타내는 HTTP표준헤더 <br><br> 지원하는 ContentType목록<br> - _application/json;charset=utf-8_ <br> - _application/x-www-form-urlencoded;charset=utf-8_ | String | Required |
-| **`apikey`** <br> API클라이언트에게 발급된 API키 [_API키 보기_](../priview/previewIndex.html#api키) | String | Required |
+| **`apikey`** <br> API클라이언트에게 발급된 API키 [_API키 보기_](../preview/previewIndex.html#api키) | String | Required |
 
 | Request Body Parameter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |  TYPE  |  REQUIRED   |
 | :----------------------------------------------------------- | :----: | :---------: |
